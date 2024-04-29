@@ -54,11 +54,17 @@ After this you will be able to install neovim
 brew install neovim
 ```
 
-This is an example of how to list things you need to use the software and how to install them.
+Now copy the lua configuration inside your .config folder.
 
-- npm
+```sh
 
-  ```sh
+git clone https://github.com/AlejandroCoronadoN/macbook-nvim.git /tmp/macbook-nvim && mkdir -p ~/.config && cp -r /tmp/macbook-nvim/nvim ~/.config/nvim && rm -rf /tmp/macbook-nvim
+```
 
-  git clone https://github.com/AlejandroCoronadoN/macbook-nvim.git /tmp/macbook-nvim && mkdir -p ~/.config && cp -r /tmp/macbook-nvim/nvim ~/.config/nvim && rm -rf /tmp/macbook-nvim
-  ```
+After this we just need to tell nvim to load all the new packages and configurations. You can call nvim and it should do it automatically but if it doesn't you can call :UpdatePackage. Sometimes you need to call source on your init.lua file:
+
+```sh
+
+cd .config/nvim
+source init.lua
+```
