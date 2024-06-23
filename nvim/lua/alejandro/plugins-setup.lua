@@ -1,5 +1,6 @@
--- auto install packer if not installed
-local ensure_packer = function()
+-- lua/alejandro/plugins-setup.lua
+
+local ensure_packer = function() 
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 	if fn.empty(fn.glob(install_path)) > 0 then
@@ -9,77 +10,49 @@ local ensure_packer = function()
 	end
 	return false
 end
-local packer_bootstrap = ensure_packer() -- true if packer was just installed
+local packer_bootstrap = ensure_packer()
 
--- autocommand that reloads neovim and installs/updates/removes plugins
--- when file is saved
-vim.cmd([[ 
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
   augroup end
 ]])
 
--- import packer safely
 local status, packer = pcall(require, "packer")
 if not status then
 	return
 end
 
--- add list of plugins to install
 return packer.startup(function(use)
-	-- packer can manage itself
 	use("wbthomason/packer.nvim")
 	use("Mr-LLLLL/interestingwords.nvim")
 	use("Blackmorse/highline.nvim")
-	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
-
-	use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme
-
-	use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
-
-	use("szw/vim-maximizer") -- maximizes and restores current window
-	use({ "ellisonleao/gruvbox.nvim" })
-	-- essential plugins
-	use("azabiong/vim-highlighter") -- WordHighligh
-	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
-	use("inkarkat/vim-ReplaceWithRegister") -- replace with register contents using motion (gr + motion)
-
-	-- commenting with gc
+	use("nvim-lua/plenary.nvim")
+	use("bluz71/vim-nightfly-guicolors")
+	use("ellisonleao/gruvbox.nvim")
+	use("christoomey/vim-tmux-navigator")
+	use("szw/vim-maximizer")
+	use("azabiong/vim-highlighter")
+	use("tpope/vim-surround")
+	use("inkarkat/vim-ReplaceWithRegister")
 	use("numToStr/Comment.nvim")
-
-	-- file explorer
 	use("nvim-tree/nvim-tree.lua")
-
-	-- vs-code like icons
 	use("kyazdani42/nvim-web-devicons")
-
-	-- statusline
 	use("nvim-lualine/lualine.nvim")
-
-	-- fuzzy finding w/ telescope
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
-	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
-
-	-- autocompletion
-	use("hrsh7th/nvim-cmp") -- completion plugin
-	use("hrsh7th/cmp-buffer") -- source for text in buffer
-	use("hrsh7th/cmp-path") -- source for file system paths
-
-	--SUDO
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" })
+	use("hrsh7th/nvim-cmp")
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-path")
 	use("lambdalisue/suda.vim")
-	-- snippets
-	use("L3MON4D3/LuaSnip") -- snippet engine
-	use("saadparwaiz1/cmp_luasnip") -- for autocompletion
-	use("rafamadriz/friendly-snippets") -- useful snippets
-
-	-- managing & installing lsp servers, linters & formatters
-	use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
-	use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
-
-	-- configuring lsp servers
-	use("neovim/nvim-lspconfig") -- easily configure language servers
-	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
+	use("L3MON4D3/LuaSnip")
+	use("saadparwaiz1/cmp_luasnip")
+	use("rafamadriz/friendly-snippets")
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
+	use("neovim/nvim-lspconfig")
+	use("hrsh7th/cmp-nvim-lsp")
 	use({
 		"glepnir/lspsaga.nvim",
 		branch = "main",
@@ -87,15 +60,11 @@ return packer.startup(function(use)
 			{ "nvim-tree/nvim-web-devicons" },
 			{ "nvim-treesitter/nvim-treesitter" },
 		},
-	}) -- enhanced lsp uis
-	use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
-	use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
-
-	-- formatting & linting
-	use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
-	use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
-
-	-- treesitter configuration
+	})
+	use("jose-elias-alvarez/typescript.nvim")
+	use("onsails/lspkind.nvim")
+	use("jose-elias-alvarez/null-ls.nvim")
+	use("jayp0521/mason-null-ls.nvim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
@@ -103,53 +72,84 @@ return packer.startup(function(use)
 			ts_update()
 		end,
 	})
-
-	-- auto closing
-	use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
-	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
-
-	-- git integration
-	use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
-
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-	-- python
-	use({
-		"mfussenegger/nvim-dap",
-		run = function(_, opts)
-			require("core.utils").load_mappings("dap")
-		end,
-	})
-	use({
-		"rcarriga/nvim-dap-ui",
-		requires = { "mfussenegger/nvim-dap" },
-		run = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			dapui.setup()
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
-		end,
-	})
-
+	use("windwp/nvim-autopairs")
+	use("mfussenegger/nvim-dap")
+	use("rcarriga/nvim-dap-ui")
+	use("theHamsta/nvim-dap-virtual-text")
 	use({
 		"mfussenegger/nvim-dap-python",
-		ft = "python",
 		requires = {
 			"mfussenegger/nvim-dap",
 			"rcarriga/nvim-dap-ui",
 		},
-		run = function(_, opts)
-			local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-			require("dap-python").setup(path)
-		end,
 	})
+	use({
+		"nvim-neotest/nvim-nio",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
+
+	use({
+		"akinsho/bufferline.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+	})
+
+	use({
+		"lewis6991/gitsigns.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
+	use("mhinz/vim-signify")
+
+	use("RRethy/vim-illuminate")
+
+
+      use({
+        "windwp/nvim-ts-autotag",
+        config = function()
+          require("nvim-ts-autotag").setup()
+        end,
+      })
+
+
+  use({
+    "github/copilot.vim"
+  })
+  use({
+    "robitx/gp.nvim",
+    config = function()
+      require("gp").setup({
+        openai_api_key = os.getenv("OPENAI_API_KEY"),  -- Ensure you have your OpenAI API key set as an environment variable
+      })
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    }
+  })
+
+  use({
+    'nvim-pack/nvim-spectre',
+    requires = { 'nvim-lua/plenary.nvim' }
+  })
+
+  use({
+    "akinsho/toggleterm.nvim",
+    tag = '*'
+  })
+
+  use({
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  })
+
+  use({
+    'glepnir/dashboard-nvim',
+    requires = {'nvim-tree/nvim-web-devicons'}
+  })
+
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)

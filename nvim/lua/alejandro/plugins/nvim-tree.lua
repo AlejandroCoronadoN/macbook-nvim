@@ -9,7 +9,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- change color for arrows in tree to light blue
-vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
+vim.cmd([[ highlight NvimTreeIndentMarker guifg=#4e7320]])
 
 -- configure nvim-tree
 nvimtree.setup({
@@ -34,9 +34,10 @@ nvimtree.setup({
       },
     },
   },
-  -- 	git = {
-  -- 		ignore = false,
-  -- 	},
+  -- increase the width of the nvim-tree window
+  view = {
+    width = 40, -- Set this to your desired width
+  },
 })
 
 -- open nvim-tree on setup
