@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["ChatGPT.nvim"] = {
+    config = { "\27LJ\2\nz\0\0\6\0\b\0\f6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0006\3\3\0009\3\4\3'\5\5\0B\3\2\2=\3\a\2B\0\2\1K\0\1\0\fapi_key\1\0\1\fapi_key\0\19OPENAI_API_KEY\vgetenv\aos\nsetup\fchatgpt\frequire\0" },
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/ChatGPT.nvim",
+    url = "https://github.com/jackMort/ChatGPT.nvim"
+  },
   ["Comment.nvim"] = {
     loaded = true,
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/Comment.nvim",
@@ -108,6 +114,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  ["codeium.vim"] = {
+    config = { "\27LJ\2\n¡\1\0\0\6\0\t\0\r6\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\3\0009\0\4\0'\2\5\0'\3\6\0'\4\a\0005\5\b\0B\0\5\1K\0\1\0\1\0\3\texpr\2\vsilent\2\fnoremap\2\21codeium#Accept()\n<C-g>\6i\20nvim_set_keymap\bapi\29codeium_disable_bindings\6g\bvim\0" },
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/codeium.vim",
+    url = "https://github.com/Exafunction/codeium.vim"
   },
   ["copilot.vim"] = {
     loaded = true,
@@ -185,6 +197,11 @@ _G.packer_plugins = {
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["mini.nvim"] = {
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/mini.nvim",
+    url = "https://github.com/echasnovski/mini.nvim"
+  },
   ["nui.nvim"] = {
     loaded = true,
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/nui.nvim",
@@ -261,10 +278,26 @@ _G.packer_plugins = {
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
+  ["obsidian.nvim"] = {
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/obsidian.nvim",
+    url = "https://github.com/epwalsh/obsidian.nvim"
+  },
+  ["package-info.nvim"] = {
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/package-info.nvim",
+    url = "https://github.com/vuki656/package-info.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
+  },
+  ["parrot.nvim"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\29alejandro.plugins.parrot\frequire\0" },
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/parrot.nvim",
+    url = "https://github.com/frankroeder/parrot.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
@@ -311,6 +344,11 @@ _G.packer_plugins = {
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/vim-illuminate",
     url = "https://github.com/RRethy/vim-illuminate"
   },
+  ["vim-markdown"] = {
+    loaded = true,
+    path = "/Users/coro/.local/share/nvim/site/pack/packer/start/vim-markdown",
+    url = "https://github.com/preservim/vim-markdown"
+  },
   ["vim-maximizer"] = {
     loaded = true,
     path = "/Users/coro/.local/share/nvim/site/pack/packer/start/vim-maximizer",
@@ -339,14 +377,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: gp.nvim
-time([[Config for gp.nvim]], true)
-try_loadstring("\27LJ\2\nƒ\1\0\0\6\0\b\0\f6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0006\3\3\0009\3\4\3'\5\5\0B\3\2\2=\3\a\2B\0\2\1K\0\1\0\19openai_api_key\1\0\1\19openai_api_key\0\19OPENAI_API_KEY\vgetenv\aos\nsetup\agp\frequire\0", "config", "gp.nvim")
-time([[Config for gp.nvim]], false)
 -- Config for: nvim-ts-autotag
 time([[Config for nvim-ts-autotag]], true)
 try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20nvim-ts-autotag\frequire\0", "config", "nvim-ts-autotag")
 time([[Config for nvim-ts-autotag]], false)
+-- Config for: ChatGPT.nvim
+time([[Config for ChatGPT.nvim]], true)
+try_loadstring("\27LJ\2\nz\0\0\6\0\b\0\f6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0006\3\3\0009\3\4\3'\5\5\0B\3\2\2=\3\a\2B\0\2\1K\0\1\0\fapi_key\1\0\1\fapi_key\0\19OPENAI_API_KEY\vgetenv\aos\nsetup\fchatgpt\frequire\0", "config", "ChatGPT.nvim")
+time([[Config for ChatGPT.nvim]], false)
+-- Config for: codeium.vim
+time([[Config for codeium.vim]], true)
+try_loadstring("\27LJ\2\n¡\1\0\0\6\0\t\0\r6\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\3\0009\0\4\0'\2\5\0'\3\6\0'\4\a\0005\5\b\0B\0\5\1K\0\1\0\1\0\3\texpr\2\vsilent\2\fnoremap\2\21codeium#Accept()\n<C-g>\6i\20nvim_set_keymap\bapi\29codeium_disable_bindings\6g\bvim\0", "config", "codeium.vim")
+time([[Config for codeium.vim]], false)
+-- Config for: gp.nvim
+time([[Config for gp.nvim]], true)
+try_loadstring("\27LJ\2\nƒ\1\0\0\6\0\b\0\f6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0006\3\3\0009\3\4\3'\5\5\0B\3\2\2=\3\a\2B\0\2\1K\0\1\0\19openai_api_key\1\0\1\19openai_api_key\0\19OPENAI_API_KEY\vgetenv\aos\nsetup\agp\frequire\0", "config", "gp.nvim")
+time([[Config for gp.nvim]], false)
+-- Config for: parrot.nvim
+time([[Config for parrot.nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\29alejandro.plugins.parrot\frequire\0", "config", "parrot.nvim")
+time([[Config for parrot.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

@@ -1,6 +1,6 @@
 -- lua/alejandro/plugins-setup.lua
-
-local ensure_packer = function() 
+vim.o.conceallevel = 1
+local ensure_packer = function()
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 	if fn.empty(fn.glob(install_path)) > 0 then
@@ -103,51 +103,94 @@ return packer.startup(function(use)
 
 	use("RRethy/vim-illuminate")
 
+	use({
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	})
 
-      use({
-        "windwp/nvim-ts-autotag",
-        config = function()
-          require("nvim-ts-autotag").setup()
-        end,
-      })
+	use({
+		"github/copilot.vim",
+	})
+	use({
+		"robitx/gp.nvim",
+		config = function()
+			require("gp").setup({
+				openai_api_key = os.getenv("OPENAI_API_KEY"), -- Ensure you have your OpenAI API key set as an environment variable
+			})
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 
+	use({
+		"nvim-pack/nvim-spectre",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
 
-  use({
-    "github/copilot.vim"
-  })
-  use({
-    "robitx/gp.nvim",
-    config = function()
-      require("gp").setup({
-        openai_api_key = os.getenv("OPENAI_API_KEY"),  -- Ensure you have your OpenAI API key set as an environment variable
-      })
-    end,
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    }
-  })
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+	})
 
-  use({
-    'nvim-pack/nvim-spectre',
-    requires = { 'nvim-lua/plenary.nvim' }
-  })
+	use({
+		"sindrets/diffview.nvim",
+		requires = "nvim-lua/plenary.nvim",
+	})
 
-  use({
-    "akinsho/toggleterm.nvim",
-    tag = '*'
-  })
+	use({
+		"glepnir/dashboard-nvim",
+		requires = { "nvim-tree/nvim-web-devicons" },
+	})
+	use({ "epwalsh/obsidian.nvim", requires = { "nvim-lua/plenary.nvim" } })
+	use({ "preservim/vim-markdown" })
 
-  use({
-    'sindrets/diffview.nvim',
-    requires = 'nvim-lua/plenary.nvim'
-  })
+	use("echasnovski/mini.nvim")
+	-- use({ "jonmorehouse/vim-flow" })
 
-  use({
-    'glepnir/dashboard-nvim',
-    requires = {'nvim-tree/nvim-web-devicons'}
-  })
+	use({
+		"vuki656/package-info.nvim",
+		requires = "MunifTanjim/nui.nvim",
+	})
+
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+			require("chatgpt").setup({
+				api_key = os.getenv("OPENAI_API_KEY"),
+			})
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
+
+	-- Add Codeium plugin
+	use({
+		"Exafunction/codeium.vim",
+		config = function()
+			-- Place any additional configuration for Codeium here
+			vim.g.codeium_disable_bindings = 1 -- Disable default bindings to avoid conflicts
+			-- Set your own keybindings for Codeium
+			vim.api.nvim_set_keymap("i", "<C-g>", "codeium#Accept()", { expr = true, noremap = true, silent = true })
+		end,
+	})
+
+	-- Parrot.nvim
+	use({
+		"frankroeder/parrot.nvim",
+		tag = "v0.3.4",
+		dependencies = { "ibhagwan/fzf-lua", "nvim-lua/plenary.nvim" },
+		config = function()
+			require("alejandro.plugins.parrot") -- Load the parrot configuration
+		end,
+	})
 
 	if packer_bootstrap then
 		require("packer").sync()

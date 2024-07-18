@@ -1,11 +1,31 @@
 -- import lualine plugin safely
 local status, lualine = pcall(require, "lualine")
 if not status then
+	print("Lualine import failed.")
 	return
 end
 
 -- get lualine nightfly theme
 local lualine_nightfly = require("lualine.themes.nightfly")
+
+local os = os
+
+-- Function to get iTerm2 profile and set color
+local function get_item_profile()
+	local profile = os.getenv("ITERM_PROFILE") or "unknown"
+	-- Define profiles and their colors
+	local profiles_to_colors = {
+		session1 = "#7e0191",
+		session2 = "#006400",
+		session3 = "#1812b5", -- Corrected hex color
+		session4 = "#653621",
+	}
+
+	-- Get color by profile name or default to a grey color
+	local color = profiles_to_colors[profile] or "#A9A9A9"
+	vim.cmd("highlight LineSpecial guibg=" .. color)
+	return string.format("%%#LineSpecial#[ Profile: %s ]%%*", profile)
+end
 
 -- new colors for theme
 local new_colors = {
@@ -67,7 +87,7 @@ lualine.setup({
 		lualine_b = {},
 		lualine_c = {},
 		lualine_x = { last_modified },
-		lualine_y = {},
+		lualine_y = { get_item_profile }, -- Move it to the proper section
 		lualine_z = { "branch" },
 	},
 	winbar = {
