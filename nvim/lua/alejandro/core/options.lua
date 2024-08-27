@@ -1,5 +1,9 @@
 local opt = vim.opt -- for conciseness
 
+-- init.lua or options.lua
+vim.opt.undofile = true -- Enable persistent undo
+vim.opt.undodir = vim.fn.expand("~/.config/nvim/undodir") -- Set undo directory
+
 -- line numbers
 opt.relativenumber = true -- show relative line numbers
 opt.number = true -- shows absolute line number on cursor line (when relative number is on)

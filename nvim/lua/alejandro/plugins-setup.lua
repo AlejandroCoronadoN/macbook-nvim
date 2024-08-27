@@ -1,4 +1,5 @@
 -- lua/alejandro/plugins-setup.lua
+
 vim.o.conceallevel = 1
 local ensure_packer = function()
 	local fn = vim.fn
@@ -25,6 +26,7 @@ if not status then
 end
 
 return packer.startup(function(use)
+	use("mbbill/undotree")
 	use("wbthomason/packer.nvim")
 	use("Mr-LLLLL/interestingwords.nvim")
 	use("Blackmorse/highline.nvim")

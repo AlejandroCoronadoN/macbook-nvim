@@ -1,4 +1,7 @@
-local dap_python = require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+local dap_python = require("dap-python")
+dap_python.setup("~/.virtualenvs/debugpy/bin/python")
+dap_python.test_runner = "pytest"
+
 local dap = require("dap")
 
 -- Function to get the correct Python path from pyenv

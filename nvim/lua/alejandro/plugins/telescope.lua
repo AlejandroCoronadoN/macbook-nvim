@@ -78,6 +78,17 @@ local function keymap_picker()
 			attach_mappings = function(prompt_bufnr, map)
 				map("i", "<CR>", actions.select_default)
 				map("n", "<CR>", actions.select_default)
+
+				-- Add custom key mappings
+				map("i", "<C-j>", actions.move_selection_next)
+				map("i", "<C-k>", actions.move_selection_previous)
+				map("i", "<C-h>", actions.move_to_top)
+				map("i", "<C-l>", actions.move_to_bottom)
+				map("n", "<C-j>", actions.move_selection_next)
+				map("n", "<C-k>", actions.move_selection_previous)
+				map("n", "<C-h>", actions.move_to_top)
+				map("n", "<C-l>", actions.move_to_bottom)
+
 				return true
 			end,
 		})
@@ -85,3 +96,6 @@ local function keymap_picker()
 end
 
 vim.api.nvim_create_user_command("TelescopeKeymaps", keymap_picker, {})
+
+-- Load Telescope extension if any
+require("telescope").load_extension("fzf")

@@ -1,4 +1,5 @@
 -- Set leader key to space
+local keymap = vim.keymap -- for conciseness
 vim.g.mapleader = " "
 
 local keymap = vim.keymap -- for conciseness
@@ -68,23 +69,26 @@ keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if ne
 ----------------------
 
 -- Toggle Breakpoint
-keymap.set("n", "<C-h>b", ":lua require'dap'.toggle_breakpoint()<CR>")
+keymap.set("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>")
 
 -- Continue
-keymap.set("n", "<C-h>c", ":lua require'dap'.continue()<CR>")
+keymap.set("n", "<leader>df", ":lua require'dap'.continue()<CR>")
 
 -- Step Over
-keymap.set("n", "<C-h>o", ":lua require'dap'.step_over()<CR>")
+keymap.set("n", "<leader>do", ":lua require'dap'.step_over()<CR>")
 
 -- Step Into
-keymap.set("n", "<C-h>i", ":lua require'dap'.step_into()<CR>")
+keymap.set("n", "<leader>di", ":lua require'dap'.step_into()<CR>")
 
 -- Step Out
-keymap.set("n", "<C-h>u", ":lua require'dap'.step_out()<CR>")
+keymap.set("n", "<leader>du", ":lua require'dap'.step_out()<CR>")
 
 -- Terminate
-keymap.set("n", "<C-h>t", ":lua require'dap'.terminate()<CR>")
+keymap.set("n", "<leader>dt", ":lua require'dap'.terminate()<CR>")
 
+keymap.set("n", "<leader>dt", ":lua require('dap-python').test_method()<CR>", opts)
+keymap.set("n", "<leader>dtc", ":lua require('dap-python').test_class()<CR>", opts)
+keymap.set("v", "<leader>dts", ":lua require('dap-python').debug_selection()<CR>", opts)
 -- Keybindings for dap-ui
 vim.keymap.set("n", "<leader>dui", function()
 	require("dapui").toggle()
@@ -199,9 +203,9 @@ vim.api.nvim_set_keymap("t", "<PageDown>", "<C-\\><C-n>:ToggleTerm<CR>", { norem
 -- Diffview Keybinds
 ----------------------
 -- Configure diffview keybindings
-vim.api.nvim_set_keymap("n", "<leader>dv", ":DiffviewOpen<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dh", ":DiffviewFileHistory<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>git", ":DiffviewOpen<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>gic", ":DiffviewClose<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>gih", ":DiffviewFileHistory<CR>", { noremap = true, silent = true })
 
 ----------------------
 -- Template Keybinds
@@ -253,10 +257,35 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
--- Set up keybinding for DescribeFile function
+----------------------
+-- COPILOT Keybinds
+------------------------
+vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+-- Set key bindings for accepting suggestions in normal and insert mode using <leader>cop
+vim.api.nvim_set_keymap("n", "<leader>cp", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+vim.api.nvim_set_keymap("i", "<leader>cp", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+-- Key mappings for Copilot
+vim.api.nvim_set_keymap("n", "<leader>cpe", ":CopilotEnable<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cpd", ":CopilotDisable<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cpt", ":CopilotToggle<CR>", { noremap = true, silent = true })
+----------------------
+-- Codeium Keybinds
+------------------------
+
 vim.api.nvim_set_keymap(
 	"n",
-	"<leader>df",
-	':lua require("parrot").hooks.DescribeFile(require("parrot"), {})<CR>',
+	"<C-a><C-a>",
+	':lua require("alejandro.core.refactor").refactor_file()<CR>',
 	{ noremap = true, silent = true }
 )
+
+-- Increase the width of the current window
+vim.api.nvim_set_keymap("n", "<leader>+", ":vertical resize +10<CR>", { noremap = true, silent = true })
+
+-- Decrease the width of the current window
+vim.api.nvim_set_keymap("n", "<leader>-", ":vertical resize -10<CR>", { noremap = true, silent = true })
+
+-- Toggle Undotree
+vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>", { noremap = true, silent = true })

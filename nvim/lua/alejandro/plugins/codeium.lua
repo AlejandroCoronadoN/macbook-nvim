@@ -1,7 +1,32 @@
--- codeium.lua
+-- ~/.config/nvim/lua/alejandro/plugins/codeium.lua
 
--- Disable default bindings to avoid conflicts
-vim.g.codeium_disable_bindings = 1
+-- Setup codeium.nvim
+require("codeium").setup({
+	-- Add any specific configuration here if needed
+	-- For example:
+	-- config_path = "~/.config/nvim/codeium.json",
+	-- enable_chat = true,
+	-- api = {
+	--     host = "codeium.example.com",
+	--     port = 443,
+	-- }
+})
 
--- Set your own keybindings for Codeium
-vim.api.nvim_set_keymap("i", "<C-g>", "codeium#Accept()", { expr = true, noremap = true, silent = true })
+-- nvim-cmp configuration to use codeium as a source
+local cmp = require("cmp")
+
+cmp.setup({
+	-- Other nvim-cmp setup options
+	sources = {
+		-- Other sources
+		{ name = "codeium" },
+	},
+	formatting = {
+		format = require("lspkind").cmp_format({
+			mode = "symbol",
+			maxwidth = 50,
+			ellipsis_char = "...",
+			symbol_map = { Codeium = "" },
+		}),
+	},
+})
